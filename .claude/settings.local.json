@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python *)",
+      "Bash(.venv/Scripts/python.exe -m pip install -e .)",
+      "Bash(.venv/Scripts/python.exe -m bookstore)",
+      "Bash(.venv/Scripts/python.exe -X utf8 -m bookstore)",
+      "Bash(.venv/Scripts/python.exe -m pip install -e \".[dev]\")",
+      "Bash(.venv/Scripts/python.exe -m pytest)"
+    ]
+  }
+}

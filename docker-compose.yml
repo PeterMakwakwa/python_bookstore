@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: bookstore_mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"           # Same port you'd use in C# / MongoClient("mongodb://localhost:27017")
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: secret
+      MONGO_INITDB_DATABASE: bookstore_db
+    volumes:
+      - mongo_data:/data/db     # Persists data between container restarts
+
+  # Optional: Mongo Express is a web UI — like MongoDB Compass but in the browser
+  mongo-express:
+    image: mongo-express:1.0.2
+    container_name: bookstore_mongo_express
+    restart: unless-stopped
+    ports:
+      - "8081:8081"             # Visit http://localhost:8081 to browse your data
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: secret
+      ME_CONFIG_MONGODB_URL: mongodb://admin:secret@mongodb:27017/
+      ME_CONFIG_BASICAUTH: false
+    depends_on:
+      - mongodb
+
+volumes:
+  mongo_data:

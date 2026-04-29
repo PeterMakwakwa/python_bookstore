@@ -1,0 +1,36 @@
+# pyproject.toml — modern Python project manifest.
+# C# equivalent: your .csproj file (declares package metadata + dependencies).
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bookstore"
+version = "0.1.0"
+description = "MongoDB bookstore demo with a C#-flavored project layout."
+requires-python = ">=3.10"
+dependencies = [
+    "pymongo==4.7.2",       # The official MongoDB driver — like MongoDB.Driver in C#
+    "python-dotenv==1.0.1", # Loads .env files — like IConfiguration / appsettings.json
+]
+
+# Optional groups installed with: pip install -e ".[dev]"
+# C# equivalent: a separate "Test" project in your solution that references the main one.
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+]
+
+[project.scripts]
+# Installs a `bookstore` command on PATH that runs main().
+# C# equivalent: producing an executable from your project.
+bookstore = "bookstore.main:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# Pytest config — equivalent to a .runsettings file in C#.
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v"
